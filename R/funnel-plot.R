@@ -42,7 +42,14 @@ model_data <-
   )
 
 ## calculate tidy hr for all comparisons
-## calculate tidy hr for all comparisons
+#' Title
+#'
+#' @param indata 
+#'
+#' @return
+#' @export
+#'
+#' @examples
 calc_tidy_hr <- function(indata) {
   
   bigN <-
@@ -64,7 +71,7 @@ calc_tidy_hr <- function(indata) {
   td2 <-
     coxph(Surv(AVAL, CNSR == 0) ~ compare2 ,  data = indata) %>%
     tidy(exponentiate = TRUE) %>%
-    mutate(compare = stringr::str_replace(term, "compare2", "vismab x 52 weeks vs. "),
+    mutate(compare = stringr::str_replace(term, "compare2", "vismab x 52 weeks vs."),
            group = stringr::str_remove(term, "compare2"),
            TRT01P = "vismab x 52 weeks")
   
@@ -85,6 +92,15 @@ calc_tidy_hr <- function(indata) {
 }
 
 
+#' Title
+#'
+#' @param in_data 
+#' @param subgroup 
+#'
+#' @return
+#' @export
+#'
+#' @examples
 get_subgroup <- function(in_data, subgroup){
   out_data <- 
     in_data %>%
