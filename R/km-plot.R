@@ -63,8 +63,11 @@ risk_data <-
   dplyr::mutate(
     group = stringr::str_remove(group, "TRT01P="),
     label = paste0(n.risk, " (", n.events, ")"),
-    y_pos = 0.01
+    y_pos = 0.01,
+    group2 = group
   )
+
+risk_data %>% glimpse()
 
 
 ############################################
@@ -73,10 +76,11 @@ risk_data <-
 
 plot <-
   km %>% ggplot(aes(x = time, y = estimate, group = group)) +
+  
   ## draw the ghost lines of each treatment by facet. Force the group facet to null
   geom_step(
-    data = transform(td2, group = NULL),
-    aes(time, estimate, group = group2),
+    data = transform(km_sm, group = NULL),
+    aes(x = time, y = estimate, group = group2),
     size = 0.75,
     color = "#000000",
     alpha = 0.15
@@ -107,12 +111,12 @@ plot <-
     axis.title.y = element_blank(),
     legend.position = "none"
   ) +
-  
   # Set the entire chart region to a light gray color
-  theme(panel.background = element_rect(fill = color_background, color = color_background)) +
-  theme(plot.background = element_rect(fill = color_background, color = color_background)) +
   theme(panel.border = element_rect(color = "grey", fill = NA, size = 0.35)) +
   facet_wrap(~ group, scales = 'free', ncol = 2) 
+
+
+plot
 
 # Save plot to file
 #-----------------------------------------

@@ -137,8 +137,6 @@ plot_data %>%
     legend.position = "none"
   ) +
   # Set the entire chart region to a light gray color
-#  theme(panel.background = element_rect(fill = color_background, color = color_background)) +
-#  theme(plot.background = element_rect(fill = color_background, color = color_background)) +
   theme(panel.border = element_rect(color = "grey", fill = NA, size = 0.35)) 
 
 
